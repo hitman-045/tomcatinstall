@@ -5,3 +5,5 @@ sudo -i;
 wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/tomcat.sh;
 chmod +x tomcat.sh;
 sh tomcat.sh;
+sleep 4
+/etc/init.d/tomcatstart
