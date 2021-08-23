@@ -1,58 +1,39 @@
 #!/bin/bash
 #Apache Tomcat Installer Script
-#Author : Shashank Srivastava
-#set -x
-echo "Logged into `hostname`. Installing here."
-#Checking if installer tarballs are present or not. If they are not found, script will print error message & quit.
-if [ -f /home/shashank/jdk-8u25-linux-x64.tar.gz ] && [ -f /home/shashank/apache-tomcat-8.0.15.tar.gz ]
-then
-echo "Unpacking Java installer tarball.......";
-sleep 2s
-#waiting for 2 seconds to show you what is being done.
-sudo tar -xzvf /home/shashank/jdk-8u25-linux-x64.tar.gz;
-echo ""
-echo "Java tarball unpacked.";
-echo ""
+
+sudo -i;
+wget https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.70/bin/apache-tomcat-8.5.70.tar.gz
+
 echo "Unpacking Tomcat installer tarball.......";
+sudo tar -zxvf apache-tomcat-8.5.70.tar.gz;
+
 sleep 2s;
-sudo tar -xzvf /home/shashank/apache-tomcat-8.0.15.tar.gz;
-echo ""
 echo "Tomcat tarball unpacked.";
-echo ""
-echo "Installing Java & Tomcat to /opt/app directory....";
-sudo cp -rp /home/shashank/jdk1.8.0_25 /opt/app;
-sudo cp -rp /home/shashank/apache-tomcat-8.0.15 /opt/app;
-echo ""
-echo "Exporting necessary variables......";
-export JAVA_HOME=/opt/app/jdk1.8.0_25;
-export PATH=$PATH:/opt/app/jdk1.8.0_25/bin:$PATH;
-export CATALINA_HOME=/opt/app/apache-tomcat-8.0.15;
-echo "Variables exported.";
-echo ""
-echo $JAVA_HOME;
-echo ""
-echo $PATH;
-echo ""
-echo $CATALINA_HOME;
-sleep 2s;
-echo ""
-echo "Checking Java & Tomcat versions.";
-echo ""
-echo "Java is installed at `which java` Directory";
-echo ""
-java -version;
-echo ""
-java -cp $CATALINA_HOME/lib/catalina.jar org.apache.catalina.util.ServerInfo;
-echo ""
-echo "Starting Tomcat server"
-echo ""
-cd $CATALINA_HOME/bin
-./startup.sh
-echo "'
-echo "Removing unpacked tarballs from PWD.";
-sudo rm -rf /home/shashank/jdk1.8.0_25;
-sudo rm -rf /home/shashank/apache-tomcat-8.0.15;
-else
-echo "Installer tarballs not found in /home/shashank. Please make sure they exist there. Exiting installation process now."
-exit
-fi
+
+echo"now going to directory /root/apache-tomcat-8.5.70/bin"
+
+cd apache-tomcat-8.5.70/bin;
+
+echo "Create soft link to start/stop tomcat service"
+
+ln -s /root/apache-tomcat-8.5.70/bin/startup.sh /etc/init.d/tomcatstart
+ln -s /root/apache-tomcat-8.5.70/bin/shutdown.sh /etc/init.d/tomcatstop
+
+echo "Content.xml should be modified in below files"
+
+cd ~
+wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/manager-METAINF
+mv -f manager-METAINF apache-tomcat-8.5.70/webapps/manager/META-INF/context.xml
+
+cd ~
+wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/host-manager-METAINF-context.xml
+mv -f host-manager-METAINF-context.xml  apache-tomcat-8.5.70/webapps/host-manager/META-INF/context.xml
+
+echo "editing tomcat-users.xml"
+
+cd ~
+wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/tomcat-users.xml
+mv -f tomcat-users.xml apache-tomcat-8.5.70/conf/tomcat-users.xml
+
+/etc/init.d/tomcatstart
+
