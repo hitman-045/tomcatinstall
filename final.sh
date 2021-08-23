@@ -2,7 +2,7 @@
 
 #!bin/bash
 sudo -i
-wget https://raw.githubusercontent.com/hitman-045/jenkinsjava/master/java.sh 
+wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/java.sh 
 wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/tomcat.sh
 chmod +x java.sh
 chmod +x tomcat.sh
