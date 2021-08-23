@@ -3,10 +3,9 @@
 
 sudo -i;
 wget https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.70/bin/apache-tomcat-8.5.70.tar.gz
-
+sleep 3
 echo "Unpacking Tomcat installer tarball.......";
 sudo tar -zxvf apache-tomcat-8.5.70.tar.gz;
-
 sleep 2s;
 echo "Tomcat tarball unpacked.";
 
