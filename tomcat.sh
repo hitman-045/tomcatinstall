@@ -35,5 +35,5 @@ cd ~
 wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/tomcat-users.xml
 mv -f tomcat-users.xml apache-tomcat-8.5.70/conf/tomcat-users.xml
 
-/etc/init.d/tomcatstart
+
 
