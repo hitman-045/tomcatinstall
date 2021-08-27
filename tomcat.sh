@@ -31,7 +31,7 @@ mv -f host-manager-METAINF-context.xml  apache-tomcat-8.5.70/webapps/host-manage
 echo "editing tomcat-users.xml"
 
 cd ~
-wget https://raw.githubusercontent.com/hitman-045/tomcatinstall/master/tomcat-users.xml
+wget https://raw.githubusercontent.com/fabric8io-images/tomcat/master/images/7/tomcat-users.xml
 mv -f tomcat-users.xml apache-tomcat-8.5.70/conf/tomcat-users.xml
 
 
